@@ -18,9 +18,16 @@ set(PROJECT_BINARY_DIR include)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${PROJECT_BINARY_DIR} gen pathgen/include)
 
-set(SOURCE_FILES pathgen/include/pathfinder.h gen/pathRequestFile.pb.cc gen/pathFile.pb.cc ${PROJECT_SOURCE_DIR}/main.cpp)
+set(SOURCE_FILES pathgen/src/modifiers/swerve.c pathgen/src/modifiers/tank.c pathgen/src/followers/distance.c
+		pathgen/src/followers/encoder.c pathgen/src/fit.c
+		pathgen/src/io.c pathgen/src/mathutil.c pathgen/src/spline.c pathgen/src/trajectory.c
+		pathgen/src/generator.c pathgen/include/io.h pathgen/include/mathutil.h pathgen/include/spline.h pathgen/include/trajectory.h
+		pathgen/include/generator.h pathgen/include/lib.h pathgen/include/fit.h pathgen/include/structs.h
+		pathgen/include/modifiers/tank.h pathgen/include/modifiers/swerve.h pathgen/include/followers/distance.h
+		pathgen/include/followers/encoder.h
+		gen/pathRequestFile.pb.cc gen/pathFile.pb.cc ${PROJECT_BINARY_DIR}/main.h
+		${PROJECT_SOURCE_DIR}/main.cpp)
 
 add_executable(jetson_pathgen ${SOURCE_FILES})
 
 target_link_libraries(jetson_pathgen ${CONAN_LIBS})
-target_link_libraries(jetson_pathgen "/media/LinHDD/Documents/CLion Projects/jetson-pathgen/pathgen/lib/libpathfinder.a")

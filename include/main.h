@@ -4,7 +4,12 @@
 
 #ifndef JETSON_PATHGEN_MAIN_H
 #define JETSON_PATHGEN_MAIN_H
-#include <../pathgen/include/pathfinder.h>
+extern "C" {
+    #include "../pathgen/src/generator.c"
+    #include "../pathgen/src/mathutil.c"
+    #include "../pathgen/src/fit.c"
+    #include "../pathgen/src/modifiers/tank.c"
+}
 #include <zmq.hpp>
 #include <pathRequestFile.pb.h>
 #include <pathFile.pb.h>

@@ -4,6 +4,8 @@
 #include "../include/main.h"
 
 double deltaTime = 0.05, maxVel = 5, maxAccel = 4.5, maxJerk = 9, wheelbaseWidth = 26.6536/12.;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-noreturn"
 int main(){
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -53,3 +55,4 @@ int main(){
         socket.send (response);
     }
 }
+#pragma clang diagnostic pop
