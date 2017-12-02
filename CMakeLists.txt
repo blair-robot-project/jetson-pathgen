@@ -21,10 +21,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR} ${PROJECT_BINARY_DIR} gen pathge
 set(SOURCE_FILES pathgen/src/modifiers/swerve.cpp pathgen/src/modifiers/tank.cpp pathgen/src/followers/distance.cpp
         pathgen/src/followers/encoder.cpp pathgen/src/fit.cpp
         pathgen/src/io.cpp pathgen/src/mathutil.cpp pathgen/src/spline.cpp pathgen/src/trajectory.cpp
-        pathgen/src/generator.cpp pathgen/include/io.h pathgen/include/mathutil.h pathgen/include/spline.h pathgen/include/trajectory.h
-		pathgen/include/generator.h pathgen/include/fit.h pathgen/include/structs.h
-		pathgen/include/modifiers/tank.h pathgen/include/modifiers/swerve.h pathgen/include/followers/distance.h
-		pathgen/include/followers/encoder.h
+        pathgen/src/generator.cpp
 		gen/pathRequestFile.pb.cc gen/pathFile.pb.cc ${PROJECT_BINARY_DIR}/main.h
 		${PROJECT_SOURCE_DIR}/main.cpp)
 
