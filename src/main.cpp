@@ -27,12 +27,16 @@ int main(){
     zmq::socket_t socket (context, ZMQ_REP);
 
     cout << "Connecting to server" << endl;
-    socket.connect ("tcp://10.4.49.2:5556");
+    socket.connect ("tcp://10.4.49.2:5800");
+    cout << "Connected to server!" << endl;
 
     while (true){
         socket.recv(&request);
+        cout << "Message received!" << endl;
         req_str = string(static_cast<char*>(request.data()), request.size());
+        cout << "Parsed to string" << endl;
         pathRequest.ParseFromString(req_str);
+        cout << "Parsed from string, x = " << pathRequest.x() << ", y = " << pathRequest.y() << ", theta = " << pathRequest.theta() << endl;
         points[1] = {pathRequest.x(), pathRequest.y(), pathRequest.theta()};
         pathfinder_prepare(points, 2, FIT_HERMITE_CUBIC, PATHFINDER_SAMPLES_LOW, deltaTime, maxVel, maxAccel, maxJerk, &candidate);
         length = candidate.length;
@@ -40,13 +44,14 @@ int main(){
         trajectory = static_cast<Segment *>(malloc(length * sizeof(Segment)));
         pathfinder_generate(&candidate, trajectory);
         pathfinder_modify_tank(trajectory, length, leftTrajectory, rightTrajectory, wheelbaseWidth);
+        cout << "Profile generated, length = " << length << endl;
         for (int c = 0; c < length; c++){
-            path.set_accelleft(c, leftTrajectory[c].acceleration);
-            path.set_velleft(c, leftTrajectory[c].velocity);
-            path.set_posleft(c, leftTrajectory[c].position);
-            path.set_accelright(c, rightTrajectory[c].acceleration);
-            path.set_velright(c, rightTrajectory[c].velocity);
-            path.set_posright(c, rightTrajectory[c].position);
+            path.add_accelleft(leftTrajectory[c].acceleration);
+            path.add_velleft(leftTrajectory[c].velocity);
+            path.add_posleft(leftTrajectory[c].position);
+            path.add_accelright(rightTrajectory[c].acceleration);
+            path.add_velright(rightTrajectory[c].velocity);
+            path.add_posright(rightTrajectory[c].position);
         }
         path.SerializeToString(&rep_str);
         response = zmq::message_t(rep_str.size());
