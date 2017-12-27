@@ -3,7 +3,7 @@
 //
 #include "../include/main.h"
 
-double deltaTime = 0.05, maxVel = 5, maxAccel = 4.5, maxJerk = 9, wheelbaseWidth = 26.6536/12.;
+double maxVel = 5, maxAccel = 4.5, maxJerk = 9, wheelbaseWidth = 26.6536/12.;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
 int main(){
@@ -21,6 +21,7 @@ int main(){
     TrajectoryCandidate candidate;
     Segment *trajectory;
     int length;
+    double deltaTime;
 
     //  Prepare our context and socket
     zmq::context_t context (1);
@@ -38,6 +39,7 @@ int main(){
         pathRequest.ParseFromString(req_str);
         cout << "Parsed from string, x = " << pathRequest.x() << ", y = " << pathRequest.y() << ", theta = " << pathRequest.theta() << endl;
         points[1] = {pathRequest.x(), pathRequest.y(), pathRequest.theta()};
+        deltaTime = pathRequest.dt()/1000.;
         pathfinder_prepare(points, 2, FIT_HERMITE_CUBIC, PATHFINDER_SAMPLES_LOW, deltaTime, maxVel, maxAccel, maxJerk, &candidate);
         length = candidate.length;
         Segment leftTrajectory[length], rightTrajectory[length];
