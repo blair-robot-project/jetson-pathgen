@@ -34,10 +34,11 @@ void protobuf_AssignDesc_pathRequestFile_2eproto() {
       "pathRequestFile.proto");
   GOOGLE_CHECK(file != NULL);
   PathRequest_descriptor_ = file->message_type(0);
-  static const int PathRequest_offsets_[3] = {
+  static const int PathRequest_offsets_[4] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathRequest, x_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathRequest, y_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathRequest, theta_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathRequest, dt_),
   };
   PathRequest_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -80,9 +81,9 @@ void protobuf_AddDesc_pathRequestFile_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\025pathRequestFile.proto\022\005proto\"2\n\013PathRe"
+    "\n\025pathRequestFile.proto\022\005proto\">\n\013PathRe"
     "quest\022\t\n\001x\030\001 \002(\001\022\t\n\001y\030\002 \002(\001\022\r\n\005theta\030\003 \002"
-    "(\001", 82);
+    "(\001\022\n\n\002dt\030\004 \002(\005", 94);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "pathRequestFile.proto", &protobuf_RegisterTypes);
   PathRequest::default_instance_ = new PathRequest();
@@ -103,6 +104,7 @@ struct StaticDescriptorInitializer_pathRequestFile_2eproto {
 const int PathRequest::kXFieldNumber;
 const int PathRequest::kYFieldNumber;
 const int PathRequest::kThetaFieldNumber;
+const int PathRequest::kDtFieldNumber;
 #endif  // !_MSC_VER
 
 PathRequest::PathRequest()
@@ -126,6 +128,7 @@ void PathRequest::SharedCtor() {
   x_ = 0;
   y_ = 0;
   theta_ = 0;
+  dt_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -171,7 +174,7 @@ void PathRequest::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  ZR_(x_, theta_);
+  ZR_(x_, dt_);
 
 #undef OFFSET_OF_FIELD_
 #undef ZR_
@@ -230,6 +233,21 @@ bool PathRequest::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(32)) goto parse_dt;
+        break;
+      }
+
+      // required int32 dt = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_dt:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &dt_)));
+          set_has_dt();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -274,6 +292,11 @@ void PathRequest::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->theta(), output);
   }
 
+  // required int32 dt = 4;
+  if (has_dt()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->dt(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -297,6 +320,11 @@ void PathRequest::SerializeWithCachedSizes(
   // required double theta = 3;
   if (has_theta()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->theta(), target);
+  }
+
+  // required int32 dt = 4;
+  if (has_dt()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->dt(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -324,6 +352,13 @@ int PathRequest::ByteSize() const {
     // required double theta = 3;
     if (has_theta()) {
       total_size += 1 + 8;
+    }
+
+    // required int32 dt = 4;
+    if (has_dt()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::Int32Size(
+          this->dt());
     }
 
   }
@@ -362,6 +397,9 @@ void PathRequest::MergeFrom(const PathRequest& from) {
     if (from.has_theta()) {
       set_theta(from.theta());
     }
+    if (from.has_dt()) {
+      set_dt(from.dt());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -379,7 +417,7 @@ void PathRequest::CopyFrom(const PathRequest& from) {
 }
 
 bool PathRequest::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
 
   return true;
 }
@@ -389,6 +427,7 @@ void PathRequest::Swap(PathRequest* other) {
     std::swap(x_, other->x_);
     std::swap(y_, other->y_);
     std::swap(theta_, other->theta_);
+    std::swap(dt_, other->dt_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

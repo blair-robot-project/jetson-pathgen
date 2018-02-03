@@ -3,7 +3,7 @@
 //
 #include "../include/main.h"
 
-double maxVel = 5, maxAccel = 4.5, maxJerk = 9, wheelbaseWidth = 26.6536/12.;
+double maxVel = 7.5, maxAccel = 5, maxJerk = 9, wheelbaseWidth = 2.168;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
 int main(){
@@ -17,7 +17,6 @@ int main(){
     zmq::message_t response;
     proto::PathRequest pathRequest = proto::PathRequest();
     proto::Path path;
-    path.set_deltatime(deltaTime);
     TrajectoryCandidate candidate;
     Segment *trajectory;
     int length;
@@ -40,6 +39,7 @@ int main(){
         cout << "Parsed from string, x = " << pathRequest.x() << ", y = " << pathRequest.y() << ", theta = " << pathRequest.theta() << endl;
         points[1] = {pathRequest.x(), pathRequest.y(), pathRequest.theta()};
         deltaTime = pathRequest.dt()/1000.;
+        path.set_deltatime(deltaTime);
         pathfinder_prepare(points, 2, FIT_HERMITE_CUBIC, PATHFINDER_SAMPLES_LOW, deltaTime, maxVel, maxAccel, maxJerk, &candidate);
         length = candidate.length;
         Segment leftTrajectory[length], rightTrajectory[length];

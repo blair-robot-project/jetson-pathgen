@@ -111,6 +111,13 @@ class PathRequest : public ::google::protobuf::Message {
   inline double theta() const;
   inline void set_theta(double value);
 
+  // required int32 dt = 4;
+  inline bool has_dt() const;
+  inline void clear_dt();
+  static const int kDtFieldNumber = 4;
+  inline ::google::protobuf::int32 dt() const;
+  inline void set_dt(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:proto.PathRequest)
  private:
   inline void set_has_x();
@@ -119,6 +126,8 @@ class PathRequest : public ::google::protobuf::Message {
   inline void clear_has_y();
   inline void set_has_theta();
   inline void clear_has_theta();
+  inline void set_has_dt();
+  inline void clear_has_dt();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -127,6 +136,7 @@ class PathRequest : public ::google::protobuf::Message {
   double x_;
   double y_;
   double theta_;
+  ::google::protobuf::int32 dt_;
   friend void  protobuf_AddDesc_pathRequestFile_2eproto();
   friend void protobuf_AssignDesc_pathRequestFile_2eproto();
   friend void protobuf_ShutdownFile_pathRequestFile_2eproto();
@@ -211,6 +221,30 @@ inline void PathRequest::set_theta(double value) {
   set_has_theta();
   theta_ = value;
   // @@protoc_insertion_point(field_set:proto.PathRequest.theta)
+}
+
+// required int32 dt = 4;
+inline bool PathRequest::has_dt() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void PathRequest::set_has_dt() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void PathRequest::clear_has_dt() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void PathRequest::clear_dt() {
+  dt_ = 0;
+  clear_has_dt();
+}
+inline ::google::protobuf::int32 PathRequest::dt() const {
+  // @@protoc_insertion_point(field_get:proto.PathRequest.dt)
+  return dt_;
+}
+inline void PathRequest::set_dt(::google::protobuf::int32 value) {
+  set_has_dt();
+  dt_ = value;
+  // @@protoc_insertion_point(field_set:proto.PathRequest.dt)
 }
 
 
