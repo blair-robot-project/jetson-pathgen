@@ -31,12 +31,10 @@ int main(){
     cout << "Connected to server!" << endl;
 
     while (true){
+        path = proto::Path();
         socket.recv(&request);
-        cout << "Message received!" << endl;
         req_str = string(static_cast<char*>(request.data()), request.size());
-        cout << "Parsed to string" << endl;
         pathRequest.ParseFromString(req_str);
-        cout << "Parsed from string, x = " << pathRequest.x() << ", y = " << pathRequest.y() << ", theta = " << pathRequest.theta() << endl;
         points[1] = {pathRequest.x(), pathRequest.y(), pathRequest.theta()};
         deltaTime = pathRequest.dt()/1000.;
         path.set_deltatime(deltaTime);
@@ -46,7 +44,6 @@ int main(){
         trajectory = static_cast<Segment *>(malloc(length * sizeof(Segment)));
         pathfinder_generate(&candidate, trajectory);
         pathfinder_modify_tank(trajectory, length, leftTrajectory, rightTrajectory, wheelbaseWidth);
-        cout << "Profile generated, length = " << length << endl;
         for (int c = 0; c < length; c++){
             path.add_accelleft(leftTrajectory[c].acceleration);
             path.add_velleft(leftTrajectory[c].velocity);
@@ -58,7 +55,6 @@ int main(){
         path.SerializeToString(&rep_str);
         response = zmq::message_t(rep_str.size());
         memcpy (response.data (), rep_str.c_str(), rep_str.size());
-        std::cout << "Sending path data ..." << std::endl;
         socket.send (response);
     }
 }
