@@ -3,7 +3,7 @@
 //
 #include "../include/main.h"
 
-double maxVel = 7.5, maxAccel = 5, maxJerk = 9, wheelbaseWidth = 2.168;
+double wheelbaseWidth = 2.168;
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
 int main(){
@@ -38,7 +38,8 @@ int main(){
         points[1] = {pathRequest.x(), pathRequest.y(), pathRequest.theta()};
         deltaTime = pathRequest.dt()/1000.;
         path.set_deltatime(deltaTime);
-        pathfinder_prepare(points, 2, FIT_HERMITE_CUBIC, PATHFINDER_SAMPLES_LOW, deltaTime, maxVel, maxAccel, maxJerk, &candidate);
+        pathfinder_prepare(points, 2, FIT_HERMITE_CUBIC, PATHFINDER_SAMPLES_LOW, deltaTime, pathRequest.maxvel(),
+                           pathRequest.maxaccel(), pathRequest.maxjerk(), &candidate);
         length = candidate.length;
         Segment leftTrajectory[length], rightTrajectory[length];
         trajectory = static_cast<Segment *>(malloc(length * sizeof(Segment)));

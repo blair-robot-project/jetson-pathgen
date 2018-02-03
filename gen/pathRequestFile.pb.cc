@@ -34,11 +34,14 @@ void protobuf_AssignDesc_pathRequestFile_2eproto() {
       "pathRequestFile.proto");
   GOOGLE_CHECK(file != NULL);
   PathRequest_descriptor_ = file->message_type(0);
-  static const int PathRequest_offsets_[4] = {
+  static const int PathRequest_offsets_[7] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathRequest, x_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathRequest, y_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathRequest, theta_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathRequest, dt_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathRequest, maxvel_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathRequest, maxaccel_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathRequest, maxjerk_),
   };
   PathRequest_reflection_ =
     new ::google::protobuf::internal::GeneratedMessageReflection(
@@ -81,9 +84,10 @@ void protobuf_AddDesc_pathRequestFile_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\025pathRequestFile.proto\022\005proto\">\n\013PathRe"
+    "\n\025pathRequestFile.proto\022\005proto\"q\n\013PathRe"
     "quest\022\t\n\001x\030\001 \002(\001\022\t\n\001y\030\002 \002(\001\022\r\n\005theta\030\003 \002"
-    "(\001\022\n\n\002dt\030\004 \002(\005", 94);
+    "(\001\022\n\n\002dt\030\004 \002(\005\022\016\n\006maxVel\030\005 \002(\001\022\020\n\010maxAcc"
+    "el\030\006 \002(\001\022\017\n\007maxJerk\030\007 \002(\001", 145);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "pathRequestFile.proto", &protobuf_RegisterTypes);
   PathRequest::default_instance_ = new PathRequest();
@@ -105,6 +109,9 @@ const int PathRequest::kXFieldNumber;
 const int PathRequest::kYFieldNumber;
 const int PathRequest::kThetaFieldNumber;
 const int PathRequest::kDtFieldNumber;
+const int PathRequest::kMaxVelFieldNumber;
+const int PathRequest::kMaxAccelFieldNumber;
+const int PathRequest::kMaxJerkFieldNumber;
 #endif  // !_MSC_VER
 
 PathRequest::PathRequest()
@@ -129,6 +136,9 @@ void PathRequest::SharedCtor() {
   y_ = 0;
   theta_ = 0;
   dt_ = 0;
+  maxvel_ = 0;
+  maxaccel_ = 0;
+  maxjerk_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -174,7 +184,9 @@ void PathRequest::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  ZR_(x_, dt_);
+  if (_has_bits_[0 / 32] & 127) {
+    ZR_(x_, dt_);
+  }
 
 #undef OFFSET_OF_FIELD_
 #undef ZR_
@@ -248,6 +260,51 @@ bool PathRequest::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(41)) goto parse_maxVel;
+        break;
+      }
+
+      // required double maxVel = 5;
+      case 5: {
+        if (tag == 41) {
+         parse_maxVel:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &maxvel_)));
+          set_has_maxvel();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(49)) goto parse_maxAccel;
+        break;
+      }
+
+      // required double maxAccel = 6;
+      case 6: {
+        if (tag == 49) {
+         parse_maxAccel:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &maxaccel_)));
+          set_has_maxaccel();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(57)) goto parse_maxJerk;
+        break;
+      }
+
+      // required double maxJerk = 7;
+      case 7: {
+        if (tag == 57) {
+         parse_maxJerk:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, &maxjerk_)));
+          set_has_maxjerk();
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -297,6 +354,21 @@ void PathRequest::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->dt(), output);
   }
 
+  // required double maxVel = 5;
+  if (has_maxvel()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(5, this->maxvel(), output);
+  }
+
+  // required double maxAccel = 6;
+  if (has_maxaccel()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(6, this->maxaccel(), output);
+  }
+
+  // required double maxJerk = 7;
+  if (has_maxjerk()) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(7, this->maxjerk(), output);
+  }
+
   if (!unknown_fields().empty()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -325,6 +397,21 @@ void PathRequest::SerializeWithCachedSizes(
   // required int32 dt = 4;
   if (has_dt()) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->dt(), target);
+  }
+
+  // required double maxVel = 5;
+  if (has_maxvel()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(5, this->maxvel(), target);
+  }
+
+  // required double maxAccel = 6;
+  if (has_maxaccel()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(6, this->maxaccel(), target);
+  }
+
+  // required double maxJerk = 7;
+  if (has_maxjerk()) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(7, this->maxjerk(), target);
   }
 
   if (!unknown_fields().empty()) {
@@ -359,6 +446,21 @@ int PathRequest::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::Int32Size(
           this->dt());
+    }
+
+    // required double maxVel = 5;
+    if (has_maxvel()) {
+      total_size += 1 + 8;
+    }
+
+    // required double maxAccel = 6;
+    if (has_maxaccel()) {
+      total_size += 1 + 8;
+    }
+
+    // required double maxJerk = 7;
+    if (has_maxjerk()) {
+      total_size += 1 + 8;
     }
 
   }
@@ -400,6 +502,15 @@ void PathRequest::MergeFrom(const PathRequest& from) {
     if (from.has_dt()) {
       set_dt(from.dt());
     }
+    if (from.has_maxvel()) {
+      set_maxvel(from.maxvel());
+    }
+    if (from.has_maxaccel()) {
+      set_maxaccel(from.maxaccel());
+    }
+    if (from.has_maxjerk()) {
+      set_maxjerk(from.maxjerk());
+    }
   }
   mutable_unknown_fields()->MergeFrom(from.unknown_fields());
 }
@@ -417,7 +528,7 @@ void PathRequest::CopyFrom(const PathRequest& from) {
 }
 
 bool PathRequest::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+  if ((_has_bits_[0] & 0x0000007f) != 0x0000007f) return false;
 
   return true;
 }
@@ -428,6 +539,9 @@ void PathRequest::Swap(PathRequest* other) {
     std::swap(y_, other->y_);
     std::swap(theta_, other->theta_);
     std::swap(dt_, other->dt_);
+    std::swap(maxvel_, other->maxvel_);
+    std::swap(maxaccel_, other->maxaccel_);
+    std::swap(maxjerk_, other->maxjerk_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.Swap(&other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);

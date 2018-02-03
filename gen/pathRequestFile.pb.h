@@ -118,6 +118,27 @@ class PathRequest : public ::google::protobuf::Message {
   inline ::google::protobuf::int32 dt() const;
   inline void set_dt(::google::protobuf::int32 value);
 
+  // required double maxVel = 5;
+  inline bool has_maxvel() const;
+  inline void clear_maxvel();
+  static const int kMaxVelFieldNumber = 5;
+  inline double maxvel() const;
+  inline void set_maxvel(double value);
+
+  // required double maxAccel = 6;
+  inline bool has_maxaccel() const;
+  inline void clear_maxaccel();
+  static const int kMaxAccelFieldNumber = 6;
+  inline double maxaccel() const;
+  inline void set_maxaccel(double value);
+
+  // required double maxJerk = 7;
+  inline bool has_maxjerk() const;
+  inline void clear_maxjerk();
+  static const int kMaxJerkFieldNumber = 7;
+  inline double maxjerk() const;
+  inline void set_maxjerk(double value);
+
   // @@protoc_insertion_point(class_scope:proto.PathRequest)
  private:
   inline void set_has_x();
@@ -128,6 +149,12 @@ class PathRequest : public ::google::protobuf::Message {
   inline void clear_has_theta();
   inline void set_has_dt();
   inline void clear_has_dt();
+  inline void set_has_maxvel();
+  inline void clear_has_maxvel();
+  inline void set_has_maxaccel();
+  inline void clear_has_maxaccel();
+  inline void set_has_maxjerk();
+  inline void clear_has_maxjerk();
 
   ::google::protobuf::UnknownFieldSet _unknown_fields_;
 
@@ -136,6 +163,9 @@ class PathRequest : public ::google::protobuf::Message {
   double x_;
   double y_;
   double theta_;
+  double maxvel_;
+  double maxaccel_;
+  double maxjerk_;
   ::google::protobuf::int32 dt_;
   friend void  protobuf_AddDesc_pathRequestFile_2eproto();
   friend void protobuf_AssignDesc_pathRequestFile_2eproto();
@@ -245,6 +275,78 @@ inline void PathRequest::set_dt(::google::protobuf::int32 value) {
   set_has_dt();
   dt_ = value;
   // @@protoc_insertion_point(field_set:proto.PathRequest.dt)
+}
+
+// required double maxVel = 5;
+inline bool PathRequest::has_maxvel() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void PathRequest::set_has_maxvel() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void PathRequest::clear_has_maxvel() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void PathRequest::clear_maxvel() {
+  maxvel_ = 0;
+  clear_has_maxvel();
+}
+inline double PathRequest::maxvel() const {
+  // @@protoc_insertion_point(field_get:proto.PathRequest.maxVel)
+  return maxvel_;
+}
+inline void PathRequest::set_maxvel(double value) {
+  set_has_maxvel();
+  maxvel_ = value;
+  // @@protoc_insertion_point(field_set:proto.PathRequest.maxVel)
+}
+
+// required double maxAccel = 6;
+inline bool PathRequest::has_maxaccel() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+inline void PathRequest::set_has_maxaccel() {
+  _has_bits_[0] |= 0x00000020u;
+}
+inline void PathRequest::clear_has_maxaccel() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+inline void PathRequest::clear_maxaccel() {
+  maxaccel_ = 0;
+  clear_has_maxaccel();
+}
+inline double PathRequest::maxaccel() const {
+  // @@protoc_insertion_point(field_get:proto.PathRequest.maxAccel)
+  return maxaccel_;
+}
+inline void PathRequest::set_maxaccel(double value) {
+  set_has_maxaccel();
+  maxaccel_ = value;
+  // @@protoc_insertion_point(field_set:proto.PathRequest.maxAccel)
+}
+
+// required double maxJerk = 7;
+inline bool PathRequest::has_maxjerk() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void PathRequest::set_has_maxjerk() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void PathRequest::clear_has_maxjerk() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void PathRequest::clear_maxjerk() {
+  maxjerk_ = 0;
+  clear_has_maxjerk();
+}
+inline double PathRequest::maxjerk() const {
+  // @@protoc_insertion_point(field_get:proto.PathRequest.maxJerk)
+  return maxjerk_;
+}
+inline void PathRequest::set_maxjerk(double value) {
+  set_has_maxjerk();
+  maxjerk_ = value;
+  // @@protoc_insertion_point(field_set:proto.PathRequest.maxJerk)
 }
 
 
