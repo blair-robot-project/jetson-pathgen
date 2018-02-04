@@ -35,10 +35,12 @@ int main(){
         socket.recv(&request);
         req_str = string(static_cast<char*>(request.data()), request.size());
         pathRequest.ParseFromString(req_str);
-        points[1] = {pathRequest.x(), pathRequest.y(), pathRequest.theta()};
+        for (int c = 0; c < pathRequest.x_size(); c++) {
+            points[c+1] = {pathRequest.x(c), pathRequest.y(c), pathRequest.theta(c)};
+        }
         deltaTime = pathRequest.dt()/1000.;
         path.set_deltatime(deltaTime);
-        pathfinder_prepare(points, 2, FIT_HERMITE_CUBIC, PATHFINDER_SAMPLES_LOW, deltaTime, pathRequest.maxvel(),
+        pathfinder_prepare(points, pathRequest.x_size(), FIT_HERMITE_CUBIC, PATHFINDER_SAMPLES_LOW, deltaTime, pathRequest.maxvel(),
                            pathRequest.maxaccel(), pathRequest.maxjerk(), &candidate);
         length = candidate.length;
         Segment leftTrajectory[length], rightTrajectory[length];
