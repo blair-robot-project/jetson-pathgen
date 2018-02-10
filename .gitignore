@@ -17,3 +17,6 @@ cmake-build-debug/
 .metadata/
 .DS_Store
 bash.exe.stackdump
+
+#installer folder
+installDependencies/
