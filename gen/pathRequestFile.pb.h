@@ -90,26 +90,41 @@ class PathRequest : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // required double x = 1;
-  inline bool has_x() const;
+  // repeated double x = 1;
+  inline int x_size() const;
   inline void clear_x();
   static const int kXFieldNumber = 1;
-  inline double x() const;
-  inline void set_x(double value);
+  inline double x(int index) const;
+  inline void set_x(int index, double value);
+  inline void add_x(double value);
+  inline const ::google::protobuf::RepeatedField< double >&
+      x() const;
+  inline ::google::protobuf::RepeatedField< double >*
+      mutable_x();
 
-  // required double y = 2;
-  inline bool has_y() const;
+  // repeated double y = 2;
+  inline int y_size() const;
   inline void clear_y();
   static const int kYFieldNumber = 2;
-  inline double y() const;
-  inline void set_y(double value);
+  inline double y(int index) const;
+  inline void set_y(int index, double value);
+  inline void add_y(double value);
+  inline const ::google::protobuf::RepeatedField< double >&
+      y() const;
+  inline ::google::protobuf::RepeatedField< double >*
+      mutable_y();
 
-  // required double theta = 3;
-  inline bool has_theta() const;
+  // repeated double theta = 3;
+  inline int theta_size() const;
   inline void clear_theta();
   static const int kThetaFieldNumber = 3;
-  inline double theta() const;
-  inline void set_theta(double value);
+  inline double theta(int index) const;
+  inline void set_theta(int index, double value);
+  inline void add_theta(double value);
+  inline const ::google::protobuf::RepeatedField< double >&
+      theta() const;
+  inline ::google::protobuf::RepeatedField< double >*
+      mutable_theta();
 
   // required int32 dt = 4;
   inline bool has_dt() const;
@@ -141,12 +156,6 @@ class PathRequest : public ::google::protobuf::Message {
 
   // @@protoc_insertion_point(class_scope:proto.PathRequest)
  private:
-  inline void set_has_x();
-  inline void clear_has_x();
-  inline void set_has_y();
-  inline void clear_has_y();
-  inline void set_has_theta();
-  inline void clear_has_theta();
   inline void set_has_dt();
   inline void clear_has_dt();
   inline void set_has_maxvel();
@@ -160,9 +169,9 @@ class PathRequest : public ::google::protobuf::Message {
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  double x_;
-  double y_;
-  double theta_;
+  ::google::protobuf::RepeatedField< double > x_;
+  ::google::protobuf::RepeatedField< double > y_;
+  ::google::protobuf::RepeatedField< double > theta_;
   double maxvel_;
   double maxaccel_;
   double maxjerk_;
@@ -181,76 +190,94 @@ class PathRequest : public ::google::protobuf::Message {
 
 // PathRequest
 
-// required double x = 1;
-inline bool PathRequest::has_x() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void PathRequest::set_has_x() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void PathRequest::clear_has_x() {
-  _has_bits_[0] &= ~0x00000001u;
+// repeated double x = 1;
+inline int PathRequest::x_size() const {
+  return x_.size();
 }
 inline void PathRequest::clear_x() {
-  x_ = 0;
-  clear_has_x();
+  x_.Clear();
 }
-inline double PathRequest::x() const {
+inline double PathRequest::x(int index) const {
   // @@protoc_insertion_point(field_get:proto.PathRequest.x)
-  return x_;
+  return x_.Get(index);
 }
-inline void PathRequest::set_x(double value) {
-  set_has_x();
-  x_ = value;
+inline void PathRequest::set_x(int index, double value) {
+  x_.Set(index, value);
   // @@protoc_insertion_point(field_set:proto.PathRequest.x)
 }
+inline void PathRequest::add_x(double value) {
+  x_.Add(value);
+  // @@protoc_insertion_point(field_add:proto.PathRequest.x)
+}
+inline const ::google::protobuf::RepeatedField< double >&
+PathRequest::x() const {
+  // @@protoc_insertion_point(field_list:proto.PathRequest.x)
+  return x_;
+}
+inline ::google::protobuf::RepeatedField< double >*
+PathRequest::mutable_x() {
+  // @@protoc_insertion_point(field_mutable_list:proto.PathRequest.x)
+  return &x_;
+}
 
-// required double y = 2;
-inline bool PathRequest::has_y() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void PathRequest::set_has_y() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void PathRequest::clear_has_y() {
-  _has_bits_[0] &= ~0x00000002u;
+// repeated double y = 2;
+inline int PathRequest::y_size() const {
+  return y_.size();
 }
 inline void PathRequest::clear_y() {
-  y_ = 0;
-  clear_has_y();
+  y_.Clear();
 }
-inline double PathRequest::y() const {
+inline double PathRequest::y(int index) const {
   // @@protoc_insertion_point(field_get:proto.PathRequest.y)
-  return y_;
+  return y_.Get(index);
 }
-inline void PathRequest::set_y(double value) {
-  set_has_y();
-  y_ = value;
+inline void PathRequest::set_y(int index, double value) {
+  y_.Set(index, value);
   // @@protoc_insertion_point(field_set:proto.PathRequest.y)
 }
+inline void PathRequest::add_y(double value) {
+  y_.Add(value);
+  // @@protoc_insertion_point(field_add:proto.PathRequest.y)
+}
+inline const ::google::protobuf::RepeatedField< double >&
+PathRequest::y() const {
+  // @@protoc_insertion_point(field_list:proto.PathRequest.y)
+  return y_;
+}
+inline ::google::protobuf::RepeatedField< double >*
+PathRequest::mutable_y() {
+  // @@protoc_insertion_point(field_mutable_list:proto.PathRequest.y)
+  return &y_;
+}
 
-// required double theta = 3;
-inline bool PathRequest::has_theta() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void PathRequest::set_has_theta() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void PathRequest::clear_has_theta() {
-  _has_bits_[0] &= ~0x00000004u;
+// repeated double theta = 3;
+inline int PathRequest::theta_size() const {
+  return theta_.size();
 }
 inline void PathRequest::clear_theta() {
-  theta_ = 0;
-  clear_has_theta();
+  theta_.Clear();
 }
-inline double PathRequest::theta() const {
+inline double PathRequest::theta(int index) const {
   // @@protoc_insertion_point(field_get:proto.PathRequest.theta)
+  return theta_.Get(index);
+}
+inline void PathRequest::set_theta(int index, double value) {
+  theta_.Set(index, value);
+  // @@protoc_insertion_point(field_set:proto.PathRequest.theta)
+}
+inline void PathRequest::add_theta(double value) {
+  theta_.Add(value);
+  // @@protoc_insertion_point(field_add:proto.PathRequest.theta)
+}
+inline const ::google::protobuf::RepeatedField< double >&
+PathRequest::theta() const {
+  // @@protoc_insertion_point(field_list:proto.PathRequest.theta)
   return theta_;
 }
-inline void PathRequest::set_theta(double value) {
-  set_has_theta();
-  theta_ = value;
-  // @@protoc_insertion_point(field_set:proto.PathRequest.theta)
+inline ::google::protobuf::RepeatedField< double >*
+PathRequest::mutable_theta() {
+  // @@protoc_insertion_point(field_mutable_list:proto.PathRequest.theta)
+  return &theta_;
 }
 
 // required int32 dt = 4;

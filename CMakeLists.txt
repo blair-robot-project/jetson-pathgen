@@ -9,8 +9,8 @@ else ()
 	set (CMAKE_CXX_STANDARD 11)
 endif ()
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
+find_package(Protobuf REQUIRED)
+include_directories(${PROTOBUF_INCLUDE_DIRS})
 
 set(PROJECT_SOURCE_DIR src)
 
@@ -27,4 +27,7 @@ set(SOURCE_FILES pathgen/src/modifiers/swerve.cpp pathgen/src/modifiers/tank.cpp
 
 add_executable(jetson_pathgen ${SOURCE_FILES})
 
-target_link_libraries(jetson_pathgen ${CONAN_LIBS})
+find_package(cppzmq)
+include_directories(${cppzmq_INCLUDE_DIR})
+target_link_libraries(jetson_pathgen ${cppzmq_LIBRARY})
+target_link_libraries(jetson_pathgen ${PROTOBUF_LIBRARIES})

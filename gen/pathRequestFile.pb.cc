@@ -85,7 +85,7 @@ void protobuf_AddDesc_pathRequestFile_2eproto() {
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
     "\n\025pathRequestFile.proto\022\005proto\"q\n\013PathRe"
-    "quest\022\t\n\001x\030\001 \002(\001\022\t\n\001y\030\002 \002(\001\022\r\n\005theta\030\003 \002"
+    "quest\022\t\n\001x\030\001 \003(\001\022\t\n\001y\030\002 \003(\001\022\r\n\005theta\030\003 \003"
     "(\001\022\n\n\002dt\030\004 \002(\005\022\016\n\006maxVel\030\005 \002(\001\022\020\n\010maxAcc"
     "el\030\006 \002(\001\022\017\n\007maxJerk\030\007 \002(\001", 145);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
@@ -132,9 +132,6 @@ PathRequest::PathRequest(const PathRequest& from)
 
 void PathRequest::SharedCtor() {
   _cached_size_ = 0;
-  x_ = 0;
-  y_ = 0;
-  theta_ = 0;
   dt_ = 0;
   maxvel_ = 0;
   maxaccel_ = 0;
@@ -184,13 +181,14 @@ void PathRequest::Clear() {
     ::memset(&first, 0, n);                                \
   } while (0)
 
-  if (_has_bits_[0 / 32] & 127) {
-    ZR_(x_, dt_);
-  }
+  ZR_(maxvel_, dt_);
 
 #undef OFFSET_OF_FIELD_
 #undef ZR_
 
+  x_.Clear();
+  y_.Clear();
+  theta_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->Clear();
 }
@@ -205,46 +203,59 @@ bool PathRequest::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required double x = 1;
+      // repeated double x = 1;
       case 1: {
         if (tag == 9) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+         parse_x:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &x_)));
-          set_has_x();
+                 1, 9, input, this->mutable_x())));
+        } else if (tag == 10) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, this->mutable_x())));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(9)) goto parse_x;
         if (input->ExpectTag(17)) goto parse_y;
         break;
       }
 
-      // required double y = 2;
+      // repeated double y = 2;
       case 2: {
         if (tag == 17) {
          parse_y:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &y_)));
-          set_has_y();
+                 1, 17, input, this->mutable_y())));
+        } else if (tag == 18) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, this->mutable_y())));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(17)) goto parse_y;
         if (input->ExpectTag(25)) goto parse_theta;
         break;
       }
 
-      // required double theta = 3;
+      // repeated double theta = 3;
       case 3: {
         if (tag == 25) {
          parse_theta:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
                    double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &theta_)));
-          set_has_theta();
+                 1, 25, input, this->mutable_theta())));
+        } else if (tag == 26) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
+                 input, this->mutable_theta())));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(25)) goto parse_theta;
         if (input->ExpectTag(32)) goto parse_dt;
         break;
       }
@@ -334,19 +345,22 @@ failure:
 void PathRequest::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:proto.PathRequest)
-  // required double x = 1;
-  if (has_x()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->x(), output);
+  // repeated double x = 1;
+  for (int i = 0; i < this->x_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(
+      1, this->x(i), output);
   }
 
-  // required double y = 2;
-  if (has_y()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->y(), output);
+  // repeated double y = 2;
+  for (int i = 0; i < this->y_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(
+      2, this->y(i), output);
   }
 
-  // required double theta = 3;
-  if (has_theta()) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->theta(), output);
+  // repeated double theta = 3;
+  for (int i = 0; i < this->theta_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteDouble(
+      3, this->theta(i), output);
   }
 
   // required int32 dt = 4;
@@ -379,19 +393,22 @@ void PathRequest::SerializeWithCachedSizes(
 ::google::protobuf::uint8* PathRequest::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
   // @@protoc_insertion_point(serialize_to_array_start:proto.PathRequest)
-  // required double x = 1;
-  if (has_x()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->x(), target);
+  // repeated double x = 1;
+  for (int i = 0; i < this->x_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteDoubleToArray(1, this->x(i), target);
   }
 
-  // required double y = 2;
-  if (has_y()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->y(), target);
+  // repeated double y = 2;
+  for (int i = 0; i < this->y_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteDoubleToArray(2, this->y(i), target);
   }
 
-  // required double theta = 3;
-  if (has_theta()) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->theta(), target);
+  // repeated double theta = 3;
+  for (int i = 0; i < this->theta_size(); i++) {
+    target = ::google::protobuf::internal::WireFormatLite::
+      WriteDoubleToArray(3, this->theta(i), target);
   }
 
   // required int32 dt = 4;
@@ -425,22 +442,7 @@ void PathRequest::SerializeWithCachedSizes(
 int PathRequest::ByteSize() const {
   int total_size = 0;
 
-  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required double x = 1;
-    if (has_x()) {
-      total_size += 1 + 8;
-    }
-
-    // required double y = 2;
-    if (has_y()) {
-      total_size += 1 + 8;
-    }
-
-    // required double theta = 3;
-    if (has_theta()) {
-      total_size += 1 + 8;
-    }
-
+  if (_has_bits_[3 / 32] & (0xffu << (3 % 32))) {
     // required int32 dt = 4;
     if (has_dt()) {
       total_size += 1 +
@@ -464,6 +466,27 @@ int PathRequest::ByteSize() const {
     }
 
   }
+  // repeated double x = 1;
+  {
+    int data_size = 0;
+    data_size = 8 * this->x_size();
+    total_size += 1 * this->x_size() + data_size;
+  }
+
+  // repeated double y = 2;
+  {
+    int data_size = 0;
+    data_size = 8 * this->y_size();
+    total_size += 1 * this->y_size() + data_size;
+  }
+
+  // repeated double theta = 3;
+  {
+    int data_size = 0;
+    data_size = 8 * this->theta_size();
+    total_size += 1 * this->theta_size() + data_size;
+  }
+
   if (!unknown_fields().empty()) {
     total_size +=
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
@@ -489,16 +512,10 @@ void PathRequest::MergeFrom(const ::google::protobuf::Message& from) {
 
 void PathRequest::MergeFrom(const PathRequest& from) {
   GOOGLE_CHECK_NE(&from, this);
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_x()) {
-      set_x(from.x());
-    }
-    if (from.has_y()) {
-      set_y(from.y());
-    }
-    if (from.has_theta()) {
-      set_theta(from.theta());
-    }
+  x_.MergeFrom(from.x_);
+  y_.MergeFrom(from.y_);
+  theta_.MergeFrom(from.theta_);
+  if (from._has_bits_[3 / 32] & (0xffu << (3 % 32))) {
     if (from.has_dt()) {
       set_dt(from.dt());
     }
@@ -528,16 +545,16 @@ void PathRequest::CopyFrom(const PathRequest& from) {
 }
 
 bool PathRequest::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000007f) != 0x0000007f) return false;
+  if ((_has_bits_[0] & 0x00000078) != 0x00000078) return false;
 
   return true;
 }
 
 void PathRequest::Swap(PathRequest* other) {
   if (other != this) {
-    std::swap(x_, other->x_);
-    std::swap(y_, other->y_);
-    std::swap(theta_, other->theta_);
+    x_.Swap(&other->x_);
+    y_.Swap(&other->y_);
+    theta_.Swap(&other->theta_);
     std::swap(dt_, other->dt_);
     std::swap(maxvel_, other->maxvel_);
     std::swap(maxaccel_, other->maxaccel_);
