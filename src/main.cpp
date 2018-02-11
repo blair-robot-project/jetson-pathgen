@@ -9,8 +9,6 @@ double wheelbaseWidth = 2.168;
 int main(){
     GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-    Waypoint points[2];
-    points[0] = {0,0,0};
     string req_str;
     zmq::message_t request;
     string rep_str;
@@ -35,12 +33,15 @@ int main(){
         socket.recv(&request);
         req_str = string(static_cast<char*>(request.data()), request.size());
         pathRequest.ParseFromString(req_str);
+	cout << "Num waypoints: " << pathRequest.x_size() << endl;
+	Waypoint points[pathRequest.x_size()+1];
+	points[0] = {0, 0, 0};
         for (int c = 0; c < pathRequest.x_size(); c++) {
             points[c+1] = {pathRequest.x(c), pathRequest.y(c), pathRequest.theta(c)};
         }
         deltaTime = pathRequest.dt()/1000.;
         path.set_deltatime(deltaTime);
-        pathfinder_prepare(points, pathRequest.x_size(), FIT_HERMITE_CUBIC, PATHFINDER_SAMPLES_LOW, deltaTime, pathRequest.maxvel(),
+        pathfinder_prepare(points, pathRequest.x_size() + 1, FIT_HERMITE_CUBIC, PATHFINDER_SAMPLES_LOW, deltaTime, pathRequest.maxvel(),
                            pathRequest.maxaccel(), pathRequest.maxjerk(), &candidate);
         length = candidate.length;
         Segment leftTrajectory[length], rightTrajectory[length];
