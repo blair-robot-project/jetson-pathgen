@@ -3,7 +3,6 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo "Not run as root, exiting."
     exit
 fi
-export
 mkdir installDependencies
 cd installDependencies
 apt -y install build-essential cmake wget
@@ -31,5 +30,5 @@ cd build
 cmake ..
 make -j$(nproc) install
 ldconfig
-cd ../../
+cd ../../../
 rm -rf installDependencies
